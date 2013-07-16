@@ -1,1 +1,55 @@
-/* CSS declarations go here */
+/* FLUVIDUS
+ * CSS - Randell Quitain
+ * http://github.com/mugetsu
+ * -------------------- */
+
+.fluvidus-block {
+	overflow: hidden;
+}
+
+.fluvidus-frame {
+	margin: 0;
+	padding: 0;
+}
+
+.fluvidus-nav {
+	clear: both;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.fluvidus-nav li {
+	display: inline-block;
+}
+
+.fluvidus-nav li a {
+	display: block;
+	padding: 5px;
+}
+
+.fluvidus-item {
+	position: relative;
+	float: left;
+	display: block;
+}
+
+.fluvidus-item img {
+	border: 0;
+	max-width: 100%;
+	width: auto	9;
+	height: auto;
+	vertical-align: middle;
+	-ms-interpolation-mode: bicubic;
+}
+
+.fluvidus-item p {
+	position: absolute;;
+	bottom: 0;
+	margin: 0;
+	padding: 1.5%;
+	width: 97%;
+	color: #FFF;
+	background: #000; /* Fall-back for browsers that don't support rgba */
+    background: rgba(0, 0, 0, .4);
+}

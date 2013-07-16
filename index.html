@@ -2,13 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Template &middot; Bootstrap</title>
+    <title>Fluvidus</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Styles -->
+    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="styles/fluvidus.css" rel="stylesheet">
 
     <style type="text/css">
       body {
@@ -54,46 +56,55 @@
 
     <div class="container-narrow">
 
-      <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="muted">Fluvidus</h3>
+      <div class="jumbotron">
+        <h1>Fluvidus</h1>
+        <p class="lead"><i>(flowing)</i> a simple fluid carousel implementation.</p>
+        <a class="btn btn-large btn-success" href="#">Try Fluvidus</a>
       </div>
 
       <hr>
 
-      <div class="jumbotron">
-        <h1>Fluvidus</h1>
-        <p class="lead"><i>(flowing)</i> is a lightweight fluid carousel implementation.</p>
-        <a class="btn btn-large btn-success" href="#">Try Fluvidus</a>
+      <div id="fluvidus" class="fluvidus-block">
+
+        <ul class="fluvidus-frame">
+
+          <li class="fluvidus-item">
+            <img src="images/explorations1.jpg" alt="Explorations 1">
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum. <a href="#">Learn More</a></p>
+          </li>
+
+          <li class="fluvidus-item">
+            <img src="images/explorations2.jpg" alt="Explorations 2">
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum. <a href="#">Learn More</a></p>
+          </li>
+
+          <li class="fluvidus-item">
+            <img src="images/explorations3.jpg" alt="Explorations 3">
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna. <a href="#">Learn More</a></p>
+          </li>
+
+          <li class="fluvidus-item">
+            <img src="images/fiftyandtwothirds3.jpg" alt="Fifty and Two Thirds">
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum. <a href="#">Learn More</a></p>
+          </li>
+
+        </ul>
+
+        <ul class="fluvidus-nav"></ul>
+
       </div>
 
       <hr>
 
       <div class="row-fluid marketing">
         <div class="span6">
-          <h4>Subheading</h4>
+          <h4>Fluidity</h4>
           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
         </div>
 
         <div class="span6">
-          <h4>Subheading</h4>
+          <h4>Lightweight</h4>
           <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
         </div>
       </div>
 
@@ -109,7 +120,7 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="scripts/fluvidus.js"></script>
 
   </body>
 </html>
