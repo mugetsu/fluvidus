@@ -89,6 +89,4 @@
     , nav_item: 'fluvidus-nav-item'
   }
 
-  $('#fluvidus').fluvidus();
-
 })(jQuery);
