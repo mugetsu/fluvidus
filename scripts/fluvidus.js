@@ -11,6 +11,7 @@
       // Initialize fluvidus
       this.applyFluidity(element, this.options);
       this.applyNavigation(element, this.options);
+      this.applyEvents(element, this.options);
     };
 
     // Public function
@@ -27,10 +28,28 @@
       if(options.nav) {
         var nav_item;
         for(i=1; i<=childLength(element); i++) {
-          (i === 1) ? nav_item = '<li><a class="fluvidus-button fluvidus-button-active" href="#">'+i+'</a></li>' : nav_item = '<li><a class="fluvidus-button" href="#">'+i+'</a></li>';
+          (i === 1) ? nav_item = '<li class="' + options.nav_item + '"><a class="fluvidus-button fluvidus-button-active" href="#">'+i+'</a></li>' : nav_item = '<li class="' + options.nav_item + '"><a class="fluvidus-button" href="#">'+i+'</a></li>';
           $(options.nav, options.container).append(nav_item);
         }
       }
+    };
+
+    this.applyEvents = function(element, options) {
+      $(options.nav, options.container).find('a').click(function(e) {
+        e.preventDefault();
+        
+        var index = $(this).parent('.' + options.nav_item).index()
+          , pos = (parentTargetContext(element) / childLength(element)) * index;
+        
+        // Reset
+        $(options.nav, options.container).find('a').removeClass('fluvidus-button-active');
+        $(this).addClass('fluvidus-button-active');
+
+        // Animate
+        $(options.parent, options.container).animate({
+          'left': (index === 0) ? pos + '%' : -(pos) + '%'
+        })
+      });
     };
 
     this.init(element, options);
@@ -67,6 +86,7 @@
     , parent: '.fluvidus-frame'
     , child: '.fluvidus-item'
     , nav: '.fluvidus-nav'
+    , nav_item: 'fluvidus-nav-item'
   }
 
   $('#fluvidus').fluvidus();

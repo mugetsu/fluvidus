@@ -8,13 +8,24 @@
 }
 
 .fluvidus-frame {
+	position: relative;
 	margin: 0;
 	padding: 0;
 }
 
+.fluvidus-frame:before,
+.fluvidus-frame:after {
+	content: "";
+	display: table;
+}
+
+.fluvidus-frame:after {
+	clear: both;
+}
+
 .fluvidus-nav {
 	clear: both;
-	margin: 0;
+	margin: 20px 0 0;
 	padding: 0;
 	text-align: center;
 }
@@ -23,9 +34,16 @@
 	display: inline-block;
 }
 
-.fluvidus-nav li a {
+.fluvidus-button {
 	display: block;
 	padding: 5px;
+}
+
+.fluvidus-button:hover,
+.fluvidus-button-active {
+	color: #FFF;
+	text-decoration: none;
+	background: #0088CC;
 }
 
 .fluvidus-item {
