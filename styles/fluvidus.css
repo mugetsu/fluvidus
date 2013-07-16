@@ -1,0 +1,74 @@
+/* FLUVIDUS
+ * CSS - Randell Quitain
+ * http://github.com/mugetsu
+ * -------------------- */
+
+.fluvidus-block {
+	overflow: hidden;
+}
+
+.fluvidus-frame {
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+.fluvidus-frame:before,
+.fluvidus-frame:after {
+	content: "";
+	display: table;
+}
+
+.fluvidus-frame:after {
+	clear: both;
+}
+
+.fluvidus-nav {
+	clear: both;
+	margin: 20px 0 0;
+	padding: 0;
+	text-align: center;
+}
+
+.fluvidus-nav li {
+	display: inline-block;
+}
+
+.fluvidus-button {
+	display: block;
+	padding: 5px;
+}
+
+.fluvidus-button:hover,
+.fluvidus-button-active {
+	color: #FFF;
+	text-decoration: none;
+	background: #0088CC;
+}
+
+.fluvidus-item {
+	position: relative;
+	float: left;
+	display: block;
+}
+
+.fluvidus-item img {
+	border: 0;
+	max-width: 100%;
+	width: auto	9;
+	height: auto;
+	vertical-align: middle;
+	-ms-interpolation-mode: bicubic;
+}
+
+.fluvidus-item p {
+	position: absolute;;
+	bottom: 0;
+	margin: 0;
+	padding: 2%;
+	width: 96%;
+	color: #FFF;
+	text-align: right;
+	background: #FFF; /* Fall-back for browsers that don't support rgba */
+    background: rgba(255, 255, 255, .2);
+}
