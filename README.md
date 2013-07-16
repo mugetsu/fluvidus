@@ -1,4 +1,4 @@
 fluvidus
 ========
 
-Fluvidus (flowing) is a lightweight fluid carousel implementation.
+Fluvidus (flowing) is a simple fluid carousel implementation.
