@@ -44,7 +44,8 @@
                 options.nav_pager_item = '.' + options.nav_pager_item;
                 $(options.nav_pager_item, options.container).find('a').click(function (e) {
                     e.preventDefault();
-                    index = $(this).parent().index(), pos = (parentTargetContext(element) / childLength(element)) * index;
+                    index = $(this).parent().index(),
+                    pos = framePosition(element, index);
                     // Reset
                     $(options.nav_pager_item, options.container).find('a').removeClass('fluvidus-button-active');
                     $(this).addClass('fluvidus-button-active');
@@ -59,13 +60,12 @@
                     var id = $(this).parent().prop('id');
                     if (id === options.prev_id) {
                         count--;
-                        (count <= 0) ? count = childLength(element) - 1 : count;
-                        pos = (parentTargetContext(element) / childLength(element)) * count;
+                        (count < 0) ? count = childLength(element) - 1 : count;
                     } else {
                         count++;
                         (count >= childLength(element)) ? count = 0 : count;
-                        pos = (parentTargetContext(element) / childLength(element)) * count;
                     }
+                    pos = framePosition(element, count);
                     // Animate
                     frameAnimation(options, index, pos);
                 });
@@ -80,28 +80,34 @@
         });
     };
 
-    // Get container width
+    // Return container width
 
     function containerWidth(element) {
         return element.width();
     };
 
-    // Get child length
+    // Return child length
 
     function childLength(element) {
         return element.find($.fluvidus.defaults.child).length;
     };
 
-    // Get parent magic value
+    // Return parent magic value
 
     function parentTargetContext(element) {
         return (((containerWidth(element) * childLength(element)) / containerWidth(element)) * 100);
     }
 
-    // Get child magic value
+    // Return child magic value
 
     function childTargetContext(element) {
         return ((containerWidth(element) / (containerWidth(element) * childLength(element))) * 100);
+    }
+
+    // Return frame position
+
+    function framePosition(element, multiplier) {
+        return (parentTargetContext(element) / childLength(element)) * multiplier;
     }
 
     // Animate the frame
@@ -109,7 +115,7 @@
     function frameAnimation(options, index, pos) {
         $(options.parent, options.container).stop(true, true).animate({
             'left': (index === 0) ? pos + '%' : -(pos) + '%'
-        })
+        });
     }
 
     $.fluvidus.defaults = {
