@@ -1,12 +1,14 @@
 /* FLUVIDUS
  * CSS - Randell Quitain
  * http://github.com/mugetsu
+ * Style it anyway you like
  * -------------------- */
 
 .fluvidus-block {
 	overflow: hidden;
 }
 
+/* FRAME */
 .fluvidus-frame {
 	position: relative;
 	margin: 0;
@@ -23,14 +25,17 @@
 	clear: both;
 }
 
-.fluvidus-nav {
+/* NAV / PAGER */
+.fluvidus-nav,
+.fluvidus-pager {
 	clear: both;
 	margin: 20px 0 0;
 	padding: 0;
 	text-align: center;
 }
 
-.fluvidus-nav li {
+.fluvidus-nav li,
+.fluvidus-pager li {
 	display: inline-block;
 }
 
@@ -46,6 +51,15 @@
 	background: #0088CC;
 }
 
+.fluvidus-button-prev {
+
+}
+
+.fluvidus-button-next {
+	
+}
+
+/* CAROUSEL ITEM */
 .fluvidus-item {
 	position: relative;
 	float: left;
