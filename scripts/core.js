@@ -1,6 +1,8 @@
 (function($) {
 
-  // init fluvidus
-  $('#fluvidus').fluvidus();
+  // Initialize fluvidus
+  $('#fluvidus').fluvidus({
+  	pager: false // true; pagination style
+  });
 
 })(jQuery);
