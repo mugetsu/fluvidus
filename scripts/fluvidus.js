@@ -9,14 +9,15 @@
             this.options = $.extend({}, $.fluvidus.defaults, options);
 
             // Initialize fluvidus
-            this.applyFluidity(element, this.options);
-            this.applyNavigation(element, this.options);
-            this.applyEvents(element, this.options);
+            this.test(element, options)
+            //this.applyFluidity(element, this.options);
+            //this.applyNavigation(element, this.options);
+            //this.applyEvents(element, this.options);
         };
 
         // Public function
-        this.test = function (name) {
-            console.log('Hello, ' + name + ', thanks for using Fluvidus!');
+        this.test = function (element, options) {
+            console.log(options.child_items);
         };
 
         this.applyFluidity = function (element, options) {
@@ -124,6 +125,10 @@
         parent: '.fluvidus-frame',
         child: '.fluvidus-item',
         child_active: 'fluvidus-item-active',
+        child_items: [{
+            media: '',
+            desc: ''
+        }],
         pager: true,
         nav_pager_item: 'fluvidus-nav-item',
         prev_id: 'fluvidus-button-prev',
