@@ -9,15 +9,19 @@
             this.options = $.extend({}, $.fluvidus.defaults, options);
 
             // Initialize fluvidus
-            this.test(element, options)
-            //this.applyFluidity(element, this.options);
-            //this.applyNavigation(element, this.options);
-            //this.applyEvents(element, this.options);
+            this.applyContent(element, this.options);
+            this.applyFluidity(element, this.options);
+            this.applyNavigation(element, this.options);
+            this.applyEvents(element, this.options);
         };
 
         // Public function
         this.test = function (element, options) {
-            console.log(options.child_items);
+            console.log(options);
+        };
+
+        this.applyContent = function (element, options) {
+            
         };
 
         this.applyFluidity = function (element, options) {
@@ -91,7 +95,7 @@
     // Return child length
 
     function childLength(element) {
-        return element.find($.fluvidus.defaults.child).length;
+        return $(element).data('fluvidus').child_items.length;
     };
 
     // Return parent magic value

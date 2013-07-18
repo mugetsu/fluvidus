@@ -3,7 +3,7 @@
   // Initialize fluvidus
   $('#fluvidus').fluvidus({
   	pager: false, // true; pagination style
-  	child_items: [{
+  	childItems: [{
   		media: 'http://images.nationalgeographic.com/wpf/media-live/photos/000/012/cache/star-birth-clouds_1227_990x742.jpg',
   		desc: 'Pillars of gas in the Eagle nebula'
   	}, {
