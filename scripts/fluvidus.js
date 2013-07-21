@@ -20,10 +20,6 @@
             console.log(options);
         };
 
-        this.applyContent = function (element, options) {
-            
-        };
-
         this.applyFluidity = function (element, options) {
             $(options.parent, options.container).css('width', parentTargetContext(element) + '%');
             $(options.child, options.container).css('width', childTargetContext(element) + '%');
