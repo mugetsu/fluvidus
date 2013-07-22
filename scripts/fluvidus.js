@@ -9,14 +9,15 @@
             this.options = $.extend({}, $.fluvidus.defaults, options);
 
             // Initialize fluvidus
+            this.applyContent(element, this.options);
             this.applyFluidity(element, this.options);
             this.applyNavigation(element, this.options);
             this.applyEvents(element, this.options);
         };
 
         // Public function
-        this.test = function (name) {
-            console.log('Hello, ' + name + ', thanks for using Fluvidus!');
+        this.test = function (element, options) {
+            console.log(options);
         };
 
         this.applyFluidity = function (element, options) {
@@ -39,22 +40,21 @@
         };
 
         this.applyEvents = function (element, options) {
-            var index, count, pos;
+            var index, count = 0, pos;
             if (options.pager === true) {
                 options.nav_pager_item = '.' + options.nav_pager_item;
                 $(options.nav_pager_item, options.container).find('a').click(function (e) {
                     e.preventDefault();
                     index = $(this).parent().index(),
                     pos = framePosition(element, index);
-                    // Reset
-                    $(options.nav_pager_item, options.container).find('a').removeClass('fluvidus-button-active');
-                    $(this).addClass('fluvidus-button-active');
+                    // Re/Set
+                    $(options.nav_pager_item, options.container).find('a').removeClass('fluvidus-button-active').end().find(this).addClass('fluvidus-button-active');
+                    $(options.child, options.container).removeClass(options.child_active).eq(index).addClass(options.child_active);
                     // Animate
                     frameAnimation(options, index, pos);
                 });
             } else {
                 options.nav_pager_item = '.' + options.nav_pager_item;
-                count = 0;
                 $(options.nav_pager_item, options.container).find('a').click(function (e) {
                     e.preventDefault();
                     var id = $(this).parent().prop('id');
@@ -66,8 +66,10 @@
                         (count >= childLength(element)) ? count = 0 : count;
                     }
                     pos = framePosition(element, count);
+                    // Re/Set
+                    $(options.child, options.container).removeClass(options.child_active).eq(count).addClass(options.child_active);
                     // Animate
-                    frameAnimation(options, index, pos);
+                    frameAnimation(options, count, pos);
                 });
             }
         };
@@ -89,7 +91,7 @@
     // Return child length
 
     function childLength(element) {
-        return element.find($.fluvidus.defaults.child).length;
+        return $(element).data('fluvidus').child_items.length;
     };
 
     // Return parent magic value
@@ -122,6 +124,11 @@
         container: '#fluvidus',
         parent: '.fluvidus-frame',
         child: '.fluvidus-item',
+        child_active: 'fluvidus-item-active',
+        child_items: [{
+            media: '',
+            desc: ''
+        }],
         pager: true,
         nav_pager_item: 'fluvidus-nav-item',
         prev_id: 'fluvidus-button-prev',
