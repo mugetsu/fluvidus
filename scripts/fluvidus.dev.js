@@ -129,7 +129,7 @@
             { frameId: 'fluvidus-item-next' }
         ],
         child: '.fluvidus-item',
-        childActiveLabel: 'fluvidus-item-active',
+        childActive: 'fluvidus-item-active',
         childItems: [{
             hero: 'images/star-birth-clouds_1227_990x742.jpg',
             desc: 'Pillars of gas in the Eagle nebula'

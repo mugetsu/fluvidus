@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Fluvidus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Styles -->
+    <link href="styles/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="styles/fluvidus.css" rel="stylesheet">
+
+    <style type="text/css">
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 960px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 40px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="container-narrow">
+
+      <div class="jumbotron">
+        <h1>Fluvidus</h1>
+        <p class="lead"><i>(flowing)</i> a simple fluid carousel implementation.</p>
+        <a class="btn btn-large btn-success" href="https://github.com/mugetsu/fluvidus">Try Fluvidus</a>
+      </div>
+
+      <hr>
+
+      <div id="fluvidus" class="fluvidus-block">
+
+        <ul class="fluvidus-frame">
+          <li id="fluvidus-item-prev" class="fluvidus-item"></li>
+          <li id="fluvidus-item-curr" class="fluvidus-item"></li>
+          <li id="fluvidus-item-next" class="fluvidus-item"></li>
+        </ul>
+
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p>&copy; Fluvidus | Randell Quitain 2013</p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Javascripts -->
+	<script type="text/javascript" src="scripts/jquery.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="scripts/modernizr-2.0.6-development-only.js"></script>
+  <script type="text/javascript" src="scripts/fluvidus.dev.js"></script>
+  
+  <script>
+    (function($) {
+
+      // Initialize fluvidus
+      $('#fluvidus').fluvidus({
+        pager: false, // true; pagination style
+        childItems: [{
+          hero: 'images/star-birth-clouds_1227_990x742.jpg',
+          desc: '1: Pillars of gas in the Eagle nebula'
+        }, {
+          hero: 'images/interacting-galaxies_1009_990x742.jpg',
+          desc: '2: Pair of interacting galaxies'
+        }, {
+          hero: 'images/saturn-aurorasingle_1182_990x742.jpg',
+          desc: '3: An aurora on Saturn'
+        }, {
+          hero: 'images/majestic-sombrero_1057_990x742.jpg',
+          desc: '4: Glowing, sombrero-shaped galaxy'
+        }]
+      });
+
+    })(jQuery);
+  </script>
+
+  </body>
+</html>
+

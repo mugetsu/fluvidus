@@ -8,7 +8,8 @@
     <meta name="author" content="">
 
     <!-- Styles -->
-    <link href="styles/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link href="styles/fluvidus.css" rel="stylesheet">
 
     <style type="text/css">
@@ -61,9 +62,27 @@
       <div id="fluvidus" class="fluvidus-block">
 
         <ul class="fluvidus-frame">
-          <li id="fluvidus-item-prev" class="fluvidus-item"></li>
-          <li id="fluvidus-item-curr" class="fluvidus-item"></li>
-          <li id="fluvidus-item-next" class="fluvidus-item"></li>
+
+          <li class="fluvidus-item fluvidus-item-active">
+            <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/012/cache/star-birth-clouds_1227_990x742.jpg" alt="Pillars of gas in the Eagle nebula">
+            <p>Pillars of gas in the Eagle nebula. <a href="http://science.nationalgeographic.com/science/photos/hubble-images-gallery">&copy; National Geographic</a></p>
+          </li>
+
+          <li class="fluvidus-item">
+            <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/010/cache/interacting-galaxies_1009_990x742.jpg" alt="Pair of interacting galaxies">
+            <p>Pair of interacting galaxies. <a href="http://science.nationalgeographic.com/science/photos/hubble-images-gallery">&copy; National Geographic</a></p>
+          </li>
+
+          <li class="fluvidus-item">
+            <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/011/cache/saturn-aurorasingle_1182_990x742.jpg" alt="An aurora on Saturn">
+            <p>An aurora on Saturn. <a href="http://science.nationalgeographic.com/science/photos/hubble-images-gallery">&copy; National Geographic</a></p>
+          </li>
+
+          <li class="fluvidus-item">
+            <img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/010/cache/majestic-sombrero_1057_990x742.jpg" alt="Glowing, sombrero-shaped galaxy">
+            <p>Glowing, sombrero-shaped galaxy. <a href="http://science.nationalgeographic.com/science/photos/hubble-images-gallery">&copy; National Geographic</a></p>
+          </li>
+
         </ul>
 
       </div>
@@ -77,11 +96,21 @@
     </div> <!-- /container -->
 
     <!-- Javascripts -->
-	<script type="text/javascript" src="scripts/jquery.min.js"></script>
-	<script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="scripts/modernizr-2.0.6-development-only.js"></script>
-  <script type="text/javascript" src="scripts/fluvidus.dev.js"></script>
-  <script type="text/javascript" src="scripts/core.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+  <script type="text/javascript" src="scripts/fluvidus.min.js"></script>
+
+  <script>
+    (function($) {
+
+    // Initialize fluvidus
+    $('#fluvidus').fluvidus({
+      pager: false // true; pagination style
+    });
+
+    })(jQuery);
+  </script>
   </body>
 </html>
 
