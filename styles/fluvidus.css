@@ -64,6 +64,7 @@
 	position: relative;
 	float: left;
 	display: block;
+	min-height: 48px; /* loader.gif height */
 	text-align: center;
 	background: url(../images/loader.gif) no-repeat center center;
 }
