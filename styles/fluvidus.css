@@ -65,6 +65,7 @@
 	float: left;
 	display: block;
 	text-align: center;
+	background: url(../images/loader.gif) no-repeat center center;
 }
 
 .fluvidus-item img {
@@ -72,6 +73,7 @@
 	max-width: 100%;
 	width: auto	9;
 	height: auto;
+	visibility: hidden;
 	vertical-align: middle;
 	-ms-interpolation-mode: bicubic;
 }

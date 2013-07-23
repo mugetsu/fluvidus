@@ -88,54 +88,36 @@
         
         for(var i = 0; i < points.length; i++) {
             for(var key in points[i] ) {
-                var path;
-
+                //console.log(key);
                 if(itemContent === 0) {
-                    $(document.getElementById(options.frameBase[i].frameId), element).append('<img src="images/loader.gif" alt="' + options.childItems[points[i][key]].desc + '" data-src="' + options.childItems[points[i][key]].hero + '"/><p>' + options.childItems[points[i][key]].desc + '</p>');
-                    
-                    path = options.childItems[points[i][key]].hero;
-                    if (path) $(document.getElementById(options.frameBase[i].frameId), element).find('img').attr('src', path);
-                    _preloader($(document.getElementById(options.frameBase[i].frameId), element).find('img'));
-
+                    // Correct data per frame
+                    $(document.getElementById(options.frameBase[i].frameId), element).append('<img src="' + options.childItems[points[i][key]].hero + '" alt="' + options.childItems[points[i][key]].desc + '"/><p>' + options.childItems[points[i][key]].desc + '</p>');
+                    // Check if images are loaded
+                    _preloader($(document.getElementById(options.frameBase[i].frameId), element).find('img'), options.childItems[points[i][key]].hero);
                 } else {
                     for(var i = 0; i < points.length; i++) {
                         for(var key in points[i] ) {
+                            // Correct data per frame
                             $(document.getElementById(options.frameBase[i].frameId), element).find('img').prop({
-                                'src': 'images/loader.gif',
-                                'alt': options.childItems[points[i][key]].desc,
-                                'data-src': options.childItems[points[i][key]].hero
+                                'src': options.childItems[points[i][key]].hero,
+                                'alt': options.childItems[points[i][key]].desc
                             }).end().find('p').text(options.childItems[points[i][key]].desc);
-                            
-                            path = options.childItems[points[i][key]].hero;
-                            if (path) $(document.getElementById(options.frameBase[i].frameId), element).find('img').attr('src', path);
-                            _preloader($(document.getElementById(options.frameBase[i].frameId), element).find('img'));
-
+                            // Check if images are loaded
+                            _preloader($(document.getElementById(options.frameBase[i].frameId), element).find('img'), options.childItems[points[i][key]].hero);
                         }
                     }
                 }
             }
         }
-
-        
         _animator(element, options, direction);
-        
     }
 
-    function _preloader(images) {
-        /* based on Unveil.js */
-        var inview, loaded, $w = $(window), th = images || 0;
-
-        inview = images.filter(function() {
-            var $e = $(this),
-            wt = $w.scrollTop(),
-            wb = wt + $w.height(),
-            et = $e.offset().top,
-            eb = et + $e.height();
-            return eb >= wt - th && et <= wb + th;
+    function _preloader(images, url) {
+        images.load(url, function(response, status, xhr) {
+            if (status == "success") {
+                images.css('visibility', 'visible');
+            }
         });
-
-        loaded = inview.trigger("_preloader");
-        images = images.not(loaded);
     }
 
     function _animator(element, options, direction) {
