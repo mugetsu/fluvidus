@@ -33,12 +33,12 @@
             var navItem, navType;
             if (options.pager === true) {
                 for (i = 1; i <= options.childItems.length; i++) {
-                    (i === 1) ? navItem = '<li class="' + options.navItemLabel + '"><a class="fluvidus-button fluvidus-button-active" href="#">' + i + '</a></li>' : navItem += '<li class="' + options.navItemLabel + '"><a class="fluvidus-button" href="#">' + i + '</a></li>';
+                    (i === 1) ? navItem = '<li class="' + options.navItemLabel + '"><a class="fluvidus-button fluvidus-button-active">' + i + '</a></li>' : navItem += '<li class="' + options.navItemLabel + '"><a class="fluvidus-button" href="#">' + i + '</a></li>';
                 }
                 navType = 'fluvidus-pager';
             } else {
-                navItem = '<li id="' + options.prevId + '" class="' + options.navItemLabel + '"><a class="fluvidus-button" href="#">' + options.navPrevLabel + '</a></li>';
-                navItem += '<li id="' + options.nextId + '" class="' + options.navItemLabel + '"><a class="fluvidus-button" href="#">' + options.navNextLabel + '</a></li>';
+                navItem = '<li id="' + options.prevId + '" class="' + options.navItemLabel + '"><a class="fluvidus-button">' + options.navPrevLabel + '</a></li>';
+                navItem += '<li id="' + options.nextId + '" class="' + options.navItemLabel + '"><a class="fluvidus-button">' + options.navNextLabel + '</a></li>';
                 navType = 'fluvidus-nav';
             }
             $(element).append('<ul class="' + navType + '">' + navItem + '</ul>');
@@ -88,23 +88,54 @@
         
         for(var i = 0; i < points.length; i++) {
             for(var key in points[i] ) {
+                var path;
+
                 if(itemContent === 0) {
-                    $(document.getElementById(options.frameBase[i].frameId), element).append('<img src="' + options.childItems[points[i][key]].hero + '" alt="' + options.childItems[points[i][key]].desc + '"/><p>' + options.childItems[points[i][key]].desc + '</p>');
+                    $(document.getElementById(options.frameBase[i].frameId), element).append('<img src="images/loader.gif" alt="' + options.childItems[points[i][key]].desc + '" data-src="' + options.childItems[points[i][key]].hero + '"/><p>' + options.childItems[points[i][key]].desc + '</p>');
+                    
+                    path = options.childItems[points[i][key]].hero;
+                    if (path) $(document.getElementById(options.frameBase[i].frameId), element).find('img').attr('src', path);
+                    _preloader($(document.getElementById(options.frameBase[i].frameId), element).find('img'));
+
                 } else {
                     for(var i = 0; i < points.length; i++) {
                         for(var key in points[i] ) {
                             $(document.getElementById(options.frameBase[i].frameId), element).find('img').prop({
-                                'src': options.childItems[points[i][key]].hero,
-                                'alt': options.childItems[points[i][key]].desc
+                                'src': 'images/loader.gif',
+                                'alt': options.childItems[points[i][key]].desc,
+                                'data-src': options.childItems[points[i][key]].hero
                             }).end().find('p').text(options.childItems[points[i][key]].desc);
+                            
+                            path = options.childItems[points[i][key]].hero;
+                            if (path) $(document.getElementById(options.frameBase[i].frameId), element).find('img').attr('src', path);
+                            _preloader($(document.getElementById(options.frameBase[i].frameId), element).find('img'));
+
                         }
                     }
                 }
             }
         }
 
+        
         _animator(element, options, direction);
         
+    }
+
+    function _preloader(images) {
+        /* based on Unveil.js */
+        var inview, loaded, $w = $(window), th = images || 0;
+
+        inview = images.filter(function() {
+            var $e = $(this),
+            wt = $w.scrollTop(),
+            wb = wt + $w.height(),
+            et = $e.offset().top,
+            eb = et + $e.height();
+            return eb >= wt - th && et <= wb + th;
+        });
+
+        loaded = inview.trigger("_preloader");
+        images = images.not(loaded);
     }
 
     function _animator(element, options, direction) {
@@ -115,7 +146,7 @@
             });
         } else {
             // Previous
-            $(options.child, options.container).eq(0).css('marginLeft', -(_orienting(element, options)) + '%').stop().animate({
+            $(options.child, element).eq(0).css('marginLeft', -(_orienting(element, options)) + '%').stop().animate({
                 marginLeft: '0%'
             });
         }

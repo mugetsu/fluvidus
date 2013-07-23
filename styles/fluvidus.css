@@ -64,6 +64,7 @@
 	position: relative;
 	float: left;
 	display: block;
+	text-align: center;
 }
 
 .fluvidus-item img {
