@@ -90,20 +90,17 @@
             for(var key in points[i] ) {
                 //console.log(key);
                 if(itemContent === 0) {
+                    // Preload next image set
+                    _preloader(document.getElementById(options.frameBase[i].frameId), options.childItems[points[i][key]].hero, options.childItems[points[i][key]].desc);
                     // Correct data per frame
-                    $(document.getElementById(options.frameBase[i].frameId), element).append('<img src="' + options.childItems[points[i][key]].hero + '" alt="' + options.childItems[points[i][key]].desc + '"/><p>' + options.childItems[points[i][key]].desc + '</p>');
-                    // Check if images are loaded
-                    _preloader($(document.getElementById(options.frameBase[i].frameId), element).find('img'), options.childItems[points[i][key]].hero);
+                    $(document.getElementById(options.frameBase[i].frameId), element).append('<p>' + options.childItems[points[i][key]].desc + '</p>');  
                 } else {
                     for(var i = 0; i < points.length; i++) {
                         for(var key in points[i] ) {
+                            // Preload next image set
+                            _preloader(document.getElementById(options.frameBase[i].frameId), options.childItems[points[i][key]].hero, options.childItems[points[i][key]].desc);  
                             // Correct data per frame
-                            $(document.getElementById(options.frameBase[i].frameId), element).find('img').prop({
-                                'src': options.childItems[points[i][key]].hero,
-                                'alt': options.childItems[points[i][key]].desc
-                            }).end().find('p').text(options.childItems[points[i][key]].desc);
-                            // Check if images are loaded
-                            _preloader($(document.getElementById(options.frameBase[i].frameId), element).find('img'), options.childItems[points[i][key]].hero);
+                            $(document.getElementById(options.frameBase[i].frameId), element).find('p').text(options.childItems[points[i][key]].desc);
                         }
                     }
                 }
@@ -112,12 +109,15 @@
         _animator(element, options, direction);
     }
 
-    function _preloader(images, url) {
-        images.load(url, function(response, status, xhr) {
-            if (status == "success") {
-                images.css('visibility', 'visible');
-            }
-        });
+    function _preloader(container, url, alt) {
+        var img = new Image();
+        img.onload = function() {
+            if ($('img', container).length != 0) $('img', container).remove('img');
+            container.appendChild(this);
+        }
+        // Image attributes
+        img.src = url;
+        img.alt = alt;
     }
 
     function _animator(element, options, direction) {
