@@ -2,17 +2,15 @@ Fluvidus
 =========
 (flowing) a simple fluid carousel implementation.
 
-[Demo - Static Data](http://mugetsu.github.io/fluvidus/index.html)
+[Demo](http://mugetsu.github.io/fluvidus)
 
-[Demo - 3-Base Frame - Dynamic Data](http://mugetsu.github.io/fluvidus/three-frames.html)
-
-## Using Fluvidus (Alpha)
+## Using Fluvidus (Beta)
 
 Basic:
 
     $('#fluvidus').fluvidus();
 
-Overriding defaults (3-Frames Configuration):
+Overriding defaults:
 
     $.fluvidus.defaults = {
       frame: '.fluvidus-frame',
