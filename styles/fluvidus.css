@@ -67,9 +67,9 @@
 	float: left;
 	display: block;
 	max-height: 360px; /* set even carousel item height */
-	height: 360px; /* loader.gif height */
+	min-height: 48px; /* loader.gif height */
 	text-align: center;
-	background: url(../images/loader.gif) no-repeat center center;
+	background: url(../images/loader.gif) no-repeat left center;
 }
 
 .fluvidus-item img {
