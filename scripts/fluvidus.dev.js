@@ -91,14 +91,14 @@
                 //console.log(key);
                 if(itemContent === 0) {
                     // Preload next image set
-                    _preloader(document.getElementById(options.frameBase[i].frameId), options.childItems[points[i][key]].hero, options.childItems[points[i][key]].desc);
+                    _preloader(document.getElementById(options.frameBase[i].frameId), options, points[i][key]);
                     // Correct data per frame
                     $(document.getElementById(options.frameBase[i].frameId), element).append('<p>' + options.childItems[points[i][key]].desc + '</p>');  
                 } else {
                     for(var i = 0; i < points.length; i++) {
                         for(var key in points[i] ) {
                             // Preload next image set
-                            _preloader(document.getElementById(options.frameBase[i].frameId), options.childItems[points[i][key]].hero, options.childItems[points[i][key]].desc);  
+                            _preloader(document.getElementById(options.frameBase[i].frameId), options, points[i][key]);
                             // Correct data per frame
                             $(document.getElementById(options.frameBase[i].frameId), element).find('p').text(options.childItems[points[i][key]].desc);
                         }
@@ -109,15 +109,23 @@
         _animator(element, options, direction);
     }
 
-    function _preloader(container, url, alt) {
+    function _preloader(container, options, pointer) {
         var img = new Image();
         img.onload = function() {
             if ($('img', container).length != 0) $('img', container).remove('img');
             container.appendChild(this);
         }
         // Image attributes
-        img.src = url;
-        img.alt = alt;
+        _attributer(img, {
+            'src': options.childItems[pointer].hero,
+            'alt': options.childItems[pointer].desc
+        });
+    }
+
+    function _attributer(el, attrs) {
+        for(var key in attrs) {
+            el.setAttribute(key, attrs[key]);
+        }
     }
 
     function _animator(element, options, direction) {
@@ -127,9 +135,8 @@
                 left: -(100) + '%'
             });
         } else {
-            // Previous
-            $(options.child, element).eq(0).css('marginLeft', -(_orienting(element, options)) + '%').stop().animate({
-                marginLeft: '0%'
+            $(options.frame, element).css('left', '-200%').stop().animate({
+                left: -(100) + '%'
             });
         }
     }
@@ -147,13 +154,14 @@
             hero: 'images/star-birth-clouds_1227_990x742.jpg',
             desc: 'Pillars of gas in the Eagle nebula'
         }],
-        pager: true,
         navItemLabel: 'fluvidus-nav-item',
         navItemActive: 'fluvidus-nav-item-active',
         navPrevLabel: 'Previous',
         navNextLabel: 'Next',
         prevId: 'fluvidus-button-prev',
-        nextId: 'fluvidus-button-next'
+        nextId: 'fluvidus-button-next',
+        loaderIcon: 'images/loader.gif',
+        pager: true
     }
 
 })(jQuery);
