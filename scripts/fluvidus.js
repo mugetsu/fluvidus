@@ -57,13 +57,10 @@
                     pointed = (typeof pointed === 'undefined') ? 0 : (pointers.length - 1);
                     pointers.push(pointer);
 
-                    if(pointer > pointers[pointed]) {
-                        direction = 1;
-                    } else {
-                        direction = -1;
+                    if(pointer != pointers[pointed]) {
+                        _adjuster(element, options, (pointer < 0) ? pointer = (last - 1) : pointer, (pointer > pointers[pointed]) ? direction = 1 : direction = -1);    
                     }
-
-                    _adjuster(element, options, (pointer < 0) ? pointer = (last - 1) : pointer, direction);
+                    
                 });
             } else {
                 $(document.getElementById(options.nextId), element).click(function(e) {
