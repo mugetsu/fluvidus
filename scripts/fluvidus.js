@@ -180,7 +180,7 @@
         nextId: 'fluvidus-button-next',
         loaderIcon: 'images/loader.gif',
         pager: true,
-        pagerActive: 'fluvidus-button-active',
+        pagerActive: 'fluvidus-button-active'
     }
 
 })(jQuery);

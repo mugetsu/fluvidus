@@ -17,23 +17,23 @@ Overriding defaults (3-Frames Configuration):
     $.fluvidus.defaults = {
       frame: '.fluvidus-frame',
       frameBase: [
-        { frameId: 'fluvidus-item-prev' },
-        { frameId: 'fluvidus-item-curr' },
-        { frameId: 'fluvidus-item-next' }
+          { frameId: 'fluvidus-item-prev' },
+          { frameId: 'fluvidus-item-curr' },
+          { frameId: 'fluvidus-item-next' }
       ],
       child: '.fluvidus-item',
-      childActiveLabel: 'fluvidus-item-active',
       childItems: [{
           hero: 'images/star-birth-clouds_1227_990x742.jpg',
           desc: 'Pillars of gas in the Eagle nebula'
       }],
-      pager: true,
       navItemLabel: 'fluvidus-nav-item',
-      navItemActive: 'fluvidus-nav-item-active',
       navPrevLabel: 'Previous',
       navNextLabel: 'Next',
       prevId: 'fluvidus-button-prev',
-      nextId: 'fluvidus-button-next'
+      nextId: 'fluvidus-button-next',
+      loaderIcon: 'images/loader.gif',
+      pager: true,
+      pagerActive: 'fluvidus-button-active'
     }
 
 **frame** = *id/className of the carousel main frame*
@@ -42,15 +42,9 @@ Overriding defaults (3-Frames Configuration):
 
 **child** = *className of the carousel item (frame items)*
 
-**childActive** = *className of the carousel active item*
-
 **childItems** = *image & image description per item, the content*
 
-**pager** = *true; enable pagination style, false; prev & next*
-
 **navItemLabel** = *className for pager items*
-
-**navItemActive** = *className of the carousel active item*
 
 **navPrevLabel** = *previous btn label*
 
@@ -59,6 +53,12 @@ Overriding defaults (3-Frames Configuration):
 **prevId** = *previous btn id*
 
 **nextId** = *next btn id*
+
+**loaderIcon** = *set loader image*
+
+**pager** = *true; enable pagination style, false; prev & next*
+
+**pagerActive** = *active pagination class name*
 
 ## License
 
