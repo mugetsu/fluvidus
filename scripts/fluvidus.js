@@ -106,7 +106,7 @@
         direction = direction || 0;
 
         //console.log('direction:'+direction+', tempCurr:'+tempCurr+', curr:'+curr+', prev:'+prev+', next:'+next);
-
+        
         if(itemContent === 0) {
             _preloader(document.getElementById('fluvidus-item-curr'), options, curr);
             _preloader(document.getElementById('fluvidus-item-prev'), options, prev);
@@ -166,11 +166,11 @@
             // Next
             $(options.frame, element).css('left', '0%').stop(true).animate({
                 left: -(100) + '%'
-            });
+            }, options.delay, options.easing);
         } else {
             $(options.frame, element).css('left', '-200%').stop(true).animate({
                 left: -(100) + '%'
-            });
+            }, options.delay, options.easing);
         }
     }
 
@@ -193,7 +193,9 @@
         nextId: 'fluvidus-button-next',
         loaderIcon: 'images/loader.gif',
         pager: true,
-        pagerActive: 'fluvidus-button-active'
+        pagerActive: 'fluvidus-button-active',
+        delay: 600,
+        easing: 'linear'
     }
 
 })(jQuery);
