@@ -45,7 +45,8 @@
         };
 
         this.applyEvents = function (element, options) {
-            var pointer = 0, last = options.childItems.length, pointers = [0], pointed, direction;
+            var pointer = 0, last = options.childItems.length, pointers = [0, 0];
+
             if (options.pager === true) {
                 $(document.getElementsByClassName(options.navItemLabel), element).click(function(e) {
                     e.preventDefault();
@@ -54,11 +55,11 @@
                     $('a', this).addClass(options.pagerActive);
 
                     pointer = $(this).index();
-                    pointed = (typeof pointed === 'undefined') ? 0 : (pointers.length - 1);
                     pointers.push(pointer);
-
-                    if(pointer != pointers[pointed]) {
-                        _adjuster(element, options, (pointer < 0) ? pointer = (last - 1) : pointer, (pointer > pointers[pointed]) ? direction = 1 : direction = -1);    
+                    
+                    if(pointer != pointers[1]) {
+                        if (pointers.length >= 3) pointers.shift();
+                        _adjuster(element, options, pointers, (pointers[0] > pointers[1]) ? -1 : 1);
                     }
                     
                 });
@@ -66,13 +67,13 @@
                 $(document.getElementById(options.nextId), element).click(function(e) {
                     e.preventDefault();
                     pointer++;
-                    _adjuster(element, options, (pointer >= last) ? pointer = 0 : pointer, 1);
+                    _adjuster(element, options, pointer, 1);
                 });
 
                 $(document.getElementById(options.prevId), element).click(function(e) {
                     e.preventDefault();
                     pointer--;
-                    _adjuster(element, options, (pointer < 0) ? pointer = (last - 1) : pointer, -1);
+                    _adjuster(element, options, pointer, -1);
                 });
             }
         };
@@ -94,33 +95,47 @@
         return ($(options.frame, element).width() / ($(options.frame, element).width() * (options.childItems.length - 1))) * 100;
     }
 
-    function _adjuster(element, options, pointer, direction) {
+    function _adjuster(element, options, pointers, direction) {
         var itemContent = $(options.child, element).children().length,
             total = (options.childItems.length - 1),
-            points = [
-                { prev: (pointer === 0) ? total : pointer - 1 },
-                { curr: pointer },
-                { next: ((pointer + 1) > total) ? 0 : pointer + 1 }
-            ];
+            tempCurr = pointers[0] || 0,
+            curr = (options.pager === true) ? pointers[1] || 0 : pointers,
+            prev = (curr <= 0) ? total : curr - 1,
+            next = (curr >= total) ? 0 : curr + 1;
         
-        for(var i = 0; i < points.length; i++) {
-            for(var key in points[i] ) {
-                //console.log(key);
-                if(itemContent === 0) {
-                    // Preload next image set
-                    _preloader(document.getElementById(options.frameBase[i].frameId), options, points[i][key]);
-                    // Correct data per frame
-                    $(document.getElementById(options.frameBase[i].frameId), element).append('<p>' + options.childItems[points[i][key]].desc + '</p>');  
+        direction = direction || 0;
+
+        //console.log('direction:'+direction+', tempCurr:'+tempCurr+', curr:'+curr+', prev:'+prev+', next:'+next);
+
+        if(itemContent === 0) {
+            _preloader(document.getElementById('fluvidus-item-curr'), options, curr);
+            _preloader(document.getElementById('fluvidus-item-prev'), options, prev);
+            _preloader(document.getElementById('fluvidus-item-next'), options, next);
+            $('#fluvidus-item-curr', element).html('').append('<p>' + options.childItems[curr].desc + '</p>');
+            $('#fluvidus-item-prev', element).html('').append('<p>' + options.childItems[prev].desc + '</p>');
+            $('#fluvidus-item-next', element).html('').append('<p>' + options.childItems[next].desc + '</p>');
+        } else {
+            /*if (options.pager === false) {
+                if (curr >= total) {
+                    curr = 0;
+                    curr++;
                 } else {
-                    for(var i = 0; i < points.length; i++) {
-                        for(var key in points[i] ) {
-                            // Preload next image set
-                            _preloader(document.getElementById(options.frameBase[i].frameId), options, points[i][key]);
-                            // Correct data per frame
-                            $(document.getElementById(options.frameBase[i].frameId), element).find('p').text(options.childItems[points[i][key]].desc);
-                        }
-                    }
+                    curr = total;
+                    curr--;
                 }
+            }*/
+            _preloader(document.getElementById('fluvidus-item-curr'), options, curr);
+            $('#fluvidus-item-curr', element).html('').append('<p>' + options.childItems[curr].desc + '</p>');
+            if(direction > 0) {
+                if (options.pager === false) tempCurr = next;
+                console.log('next:'+tempCurr);
+                _preloader(document.getElementById('fluvidus-item-prev'), options, tempCurr);
+                $('#fluvidus-item-prev', element).html('').append('<p>' + options.childItems[tempCurr].desc + '</p>');
+            } else {
+                if (options.pager === false) tempCurr = prev;
+                console.log('prev:'+tempCurr);
+                _preloader(document.getElementById('fluvidus-item-next'), options, tempCurr);
+                $('#fluvidus-item-next', element).html('').append('<p>' + options.childItems[tempCurr].desc + '</p>');
             }
         }
         _animator(element, options, direction);
@@ -130,13 +145,14 @@
         var img = new Image();
         img.onload = function() {
             if ($('img', container).length != 0) $('img', container).remove('img');
+            // Image attributes
+            _attributer(img, {
+                'src': options.childItems[pointer].hero,
+                'alt': options.childItems[pointer].desc
+            });
             container.appendChild(this);
         }
-        // Image attributes
-        _attributer(img, {
-            'src': options.childItems[pointer].hero,
-            'alt': options.childItems[pointer].desc
-        });
+        img.src = options.loaderIcon;
     }
 
     function _attributer(el, attrs) {
