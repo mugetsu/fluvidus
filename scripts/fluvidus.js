@@ -1,3 +1,9 @@
+/*!
+ * Fluvidus
+ * Author: Randell Quitain [@cprjk]
+ * Licensed under the GPL license
+ */
+
 (function ($) {
 
     $.fluvidus = function (element, options) {
@@ -7,70 +13,73 @@
 
         this.init = function (element, options) {
             this.options = $.extend({}, $.fluvidus.defaults, options);
+            
+            // Initialize correct data
+            _adjuster(element, this.options, 0);
 
-            // Initialize fluvidus
+            // Spin the pot molder
             this.applyFluidity(element, this.options);
             this.applyNavigation(element, this.options);
             this.applyEvents(element, this.options);
         };
 
         // Public function
-        this.test = function (name) {
-            console.log('Hello, ' + name + ', thanks for using Fluvidus!');
-        };
-
         this.applyFluidity = function (element, options) {
-            $(options.parent, options.container).css('width', parentTargetContext(element) + '%');
-            $(options.child, options.container).css('width', childTargetContext(element) + '%');
+            $(options.frame, element).css({ left: -(100) + '%', width: _framing(element, options) + '%' });
+            $(options.child, element).width( _orienting(element, options) + '%' );
         };
 
         this.applyNavigation = function (element, options) {
+            var navItem, navType;
             if (options.pager === true) {
-                var nav_item;
-                for (i = 1; i <= childLength(element); i++) {
-                    (i === 1) ? nav_item = '<li class="' + options.nav_pager_item + '"><a class="fluvidus-button fluvidus-button-active" href="#">' + i + '</a></li>' : nav_item += '<li class="' + options.nav_pager_item + '"><a class="fluvidus-button" href="#">' + i + '</a></li>';
+                for (i = 1; i <= options.childItems.length; i++) {
+                    (i === 1) ? navItem = '<li class="' + options.navItemLabel + '"><a class="fluvidus-button fluvidus-button-active">' + i + '</a></li>' : navItem += '<li class="' + options.navItemLabel + '"><a class="fluvidus-button" href="#">' + i + '</a></li>';
                 }
-                $(options.container).append('<ul class="fluvidus-pager">' + nav_item + '</ul>');
+                navType = 'fluvidus-pager';
             } else {
-                nav_buttons = '<li id="' + options.prev_id + '" class="' + options.nav_pager_item + '"><a class="fluvidus-button" href="#">' + options.nav_prev_label + '</a></li>';
-                nav_buttons += '<li id="' + options.next_id + '" class="' + options.nav_pager_item + '"><a class="fluvidus-button" href="#">' + options.nav_next_label + '</a></li>';
-                $(options.container).append('<ul class="fluvidus-nav">' + nav_buttons + '</ul>');
+                navItem = '<li id="' + options.prevId + '" class="' + options.navItemLabel + '"><a class="fluvidus-button">' + options.navPrevLabel + '</a></li>';
+                navItem += '<li id="' + options.nextId + '" class="' + options.navItemLabel + '"><a class="fluvidus-button">' + options.navNextLabel + '</a></li>';
+                navType = 'fluvidus-nav';
             }
+            $(element).append('<ul class="' + navType + '">' + navItem + '</ul>');
         };
 
         this.applyEvents = function (element, options) {
-            var index, count, pos;
+            var pointer = 0, last = options.childItems.length, pointers = (options.pager === true) ? [(last-1), 0] : 0;
+
             if (options.pager === true) {
-                options.nav_pager_item = '.' + options.nav_pager_item;
-                $(options.nav_pager_item, options.container).find('a').click(function (e) {
+                $(document.getElementsByClassName(options.navItemLabel), element).click(function(e) {
                     e.preventDefault();
-                    index = $(this).parent().index(),
-                    pos = framePosition(element, index);
-                    // Reset
-                    $(options.nav_pager_item, options.container).find('a').removeClass('fluvidus-button-active');
-                    $(this).addClass('fluvidus-button-active');
-                    // Animate
-                    frameAnimation(options, index, pos);
+
+                    $('a', document.getElementsByClassName(options.navItemLabel)).removeClass(options.pagerActive);
+                    $('a', this).addClass(options.pagerActive);
+
+                    pointer = $(this).index();
+                    
+                    if(pointer != pointers[1]) {
+                        pointers.push(pointer)
+                        if (pointers.length >= 3) pointers.shift();
+                        _adjuster(element, options, pointers, (pointers[0] > pointers[1]) ? -1 : 1);
+                    }
+                    
                 });
             } else {
-                options.nav_pager_item = '.' + options.nav_pager_item;
-                count = 0;
-                $(options.nav_pager_item, options.container).find('a').click(function (e) {
+                $(document.getElementById(options.nextId), element).click(function(e) {
                     e.preventDefault();
-                    var id = $(this).parent().prop('id');
-                    if (id === options.prev_id) {
-                        count--;
-                        (count < 0) ? count = childLength(element) - 1 : count;
-                    } else {
-                        count++;
-                        (count >= childLength(element)) ? count = 0 : count;
-                    }
-                    pos = framePosition(element, count);
-                    // Animate
-                    frameAnimation(options, index, pos);
+                    (pointers >= (last - 1)) ? pointers = 0 : pointers++;
+                    console.log('next:'+pointers);
+                    _adjuster(element, options, pointers, 1);
+                });
+
+                $(document.getElementById(options.prevId), element).click(function(e) {
+                    e.preventDefault();
+                    (pointers <= 0) ? pointers = (last - 1) : pointers--;
+                    console.log('prev:'+pointers);
+                    _adjuster(element, options, pointers, -1);
                 });
             }
         };
+
         this.init(element, options);
     };
 
@@ -80,54 +89,110 @@
         });
     };
 
-    // Return container width
-
-    function containerWidth(element) {
-        return element.width();
-    };
-
-    // Return child length
-
-    function childLength(element) {
-        return element.find($.fluvidus.defaults.child).length;
-    };
-
-    // Return parent magic value
-
-    function parentTargetContext(element) {
-        return (((containerWidth(element) * childLength(element)) / containerWidth(element)) * 100);
+    function _framing(element, options) {
+        return (($(options.frame, element).width() * (options.childItems.length - 1)) / $(options.frame, element).width()) * 100;
     }
 
-    // Return child magic value
-
-    function childTargetContext(element) {
-        return ((containerWidth(element) / (containerWidth(element) * childLength(element))) * 100);
+    function _orienting(element, options) {
+        return ($(options.frame, element).width() / ($(options.frame, element).width() * (options.childItems.length - 1))) * 100;
     }
 
-    // Return frame position
-
-    function framePosition(element, multiplier) {
-        return (parentTargetContext(element) / childLength(element)) * multiplier;
+    function _adjuster(element, options, pointers, direction) {
+        var itemContent = $(options.child, element).children().length,
+            total = (options.childItems.length - 1),
+            tempCurr = (options.pager === true) ? ((typeof pointers[0] === 'undefined') ? 0 : pointers[0]) : pointers,
+            curr = (options.pager === true) ? pointers[1] || 0 : pointers,
+            next = (options.pager === true) ? tempCurr : (curr >= total) ? 0 : curr + 1,
+			prev = (options.pager === true) ? tempCurr : (curr <= 0) ? total : curr - 1,
+			points = [curr, next, prev];
+        
+        direction = direction || 0;
+		
+		if(itemContent === 0) {
+			for(var i = 0; i < points.length; i++) {
+				_preloader(document.getElementById(options.frameBase[i].frameId), options, points[i]);
+			}
+		} else {
+			curr = (options.pager === true) ? curr : curr;
+			_preloader(document.getElementById(options.frameBase[0].frameId), options, curr);
+			if(direction > 0) {
+				next = (options.pager === true) ? next : prev;
+				_preloader(document.getElementById(options.frameBase[2].frameId), options, next);
+			} else {
+				prev = (options.pager === true) ? prev : next;
+				_preloader(document.getElementById(options.frameBase[1].frameId), options, prev);
+			}
+		}
+		
+        _animator(element, options, direction);
     }
 
-    // Animate the frame
+    function _preloader(container, options, pointer) {
+        var hero = new Image(),
+			desc = document.createElement('p'),
+			text = document.createTextNode(options.childItems[pointer].desc);
+			
+        hero.onload = function() {
+            if ($('img', container).length != 0 && $('p', container)) {
+				$('img', container).remove('img');
+				$('p', container).remove('p');
+			}
+            
+			// Element attributes & text
+            _attributer(hero, {
+                'src': options.childItems[pointer].hero,
+                'alt': options.childItems[pointer].desc
+            });
+			desc.appendChild(text);
+			
+            container.appendChild(this);
+			container.appendChild(desc);
+        }
+		// Append loader image
+        hero.src = options.loaderIcon;
+    }
 
-    function frameAnimation(options, index, pos) {
-        $(options.parent, options.container).stop(true, true).animate({
-            'left': (index === 0) ? pos + '%' : -(pos) + '%'
-        });
+    function _attributer(el, attrs) {
+        for(var key in attrs) {
+            el.setAttribute(key, attrs[key]);
+        }
+    }
+
+    function _animator(element, options, direction) {
+        if(direction > 0) {
+            // Next
+            $(options.frame, element).css('left', '0%').stop(true).animate({
+                left: -(100) + '%'
+            }, options.delay, options.easing);
+        } else {
+            $(options.frame, element).css('left', '-200%').stop(true).animate({
+                left: -(100) + '%'
+            }, options.delay, options.easing);
+        }
     }
 
     $.fluvidus.defaults = {
-        container: '#fluvidus',
-        parent: '.fluvidus-frame',
+        frame: '.fluvidus-frame',
+        frameBase: [
+            { frameId: 'fluvidus-item-curr' },
+            { frameId: 'fluvidus-item-next' },
+			{ frameId: 'fluvidus-item-prev' }
+        ],
         child: '.fluvidus-item',
+        childItems: [{
+            hero: 'images/star-birth-clouds_1227_990x742.jpg',
+            desc: 'Pillars of gas in the Eagle nebula'
+        }],
+        navItemLabel: 'fluvidus-nav-item',
+        navPrevLabel: 'Previous',
+        navNextLabel: 'Next',
+        prevId: 'fluvidus-button-prev',
+        nextId: 'fluvidus-button-next',
+        loaderIcon: 'images/loader.gif',
         pager: true,
-        nav_pager_item: 'fluvidus-nav-item',
-        prev_id: 'fluvidus-button-prev',
-        next_id: 'fluvidus-button-next',
-        nav_prev_label: 'Previous',
-        nav_next_label: 'Next'
+        pagerActive: 'fluvidus-button-active',
+        delay: 600,
+        easing: 'linear'
     }
 
 })(jQuery);

@@ -2,9 +2,9 @@ Fluvidus
 =========
 (flowing) a simple fluid carousel implementation.
 
-[Demo](http://mugetsu.github.io/fluvidus/).
+[Demo](http://mugetsu.github.io/fluvidus)
 
-## Using Fluvidus (Alpha)
+## Using Fluvidus (Beta)
 
 Basic:
 
@@ -13,34 +13,56 @@ Basic:
 Overriding defaults:
 
     $.fluvidus.defaults = {
-      container: '#fluvidus',
-      parent: '.fluvidus-frame',
-      child: '.fluvidus-item',
-      pager: true,
-      nav_pager_item: 'fluvidus-nav-item',
-      prev_id: 'fluvidus-button-prev',
-      next_id: 'fluvidus-button-next',
-      nav_prev_label: 'Previous',
-      nav_next_label: 'Next'
+	    frame: '.fluvidus-frame',
+	    frameBase: [
+			{ frameId: 'fluvidus-item-curr' },
+			{ frameId: 'fluvidus-item-next' },
+			{ frameId: 'fluvidus-item-prev' }
+	    ],
+	    child: '.fluvidus-item',
+	    childItems: [{
+			hero: 'images/star-birth-clouds_1227_990x742.jpg',
+			desc: 'Pillars of gas in the Eagle nebula'
+	    }],
+	    navItemLabel: 'fluvidus-nav-item',
+	    navPrevLabel: 'Previous',
+	    navNextLabel: 'Next',
+	    prevId: 'fluvidus-button-prev',
+	    nextId: 'fluvidus-button-next',
+	    loaderIcon: 'images/loader.gif',
+	    pager: true,
+	    pagerActive: 'fluvidus-button-active',
+	    delay: 600,
+	    easing: 'linear'
     }
 
-**container** = *id/className of the carousel container*
+**frame** = *id/className of the carousel main frame*
 
-**parent** = *id/className of the carousel frame (main frame)*
+**frameBase** = *id of the carousel basic frames (previous, current, next) in order*
 
 **child** = *className of the carousel item (frame items)*
 
+**childItems** = *image & image description per item, the content*
+
+**navItemLabel** = *className for pager items*
+
+**navPrevLabel** = *previous btn label*
+
+**navNextLabel** = *next btn label*
+
+**prevId** = *previous btn id*
+
+**nextId** = *next btn id*
+
+**loaderIcon** = *set loader image*
+
 **pager** = *true; enable pagination style, false; prev & next*
 
-**nav_pager_item** = *className for pager items*
+**pagerActive** = *active pagination class name*
 
-**prev_id** = *change previous btn id*
+**delay** = *set animation delay*
 
-**next_id** = *change next btn id*
-
-**nav_prev_label** = *change previous btn label*
-
-**nav_next_label** = *change next btn label*
+**easing** = *set animation easing*
 
 ## License
 

@@ -5,6 +5,8 @@
  * -------------------- */
 
 .fluvidus-block {
+	margin: 0 auto;
+	width: 66.666666666667%; /* target (640 = carousel px width) / context (960 = carousel container width) * 100 */
 	overflow: hidden;
 }
 
@@ -64,6 +66,9 @@
 	position: relative;
 	float: left;
 	display: block;
+	max-height: 360px; /* set even carousel item height */
+	text-align: center;
+	background: url(../images/loader.gif) no-repeat center center;
 }
 
 .fluvidus-item img {
@@ -84,5 +89,5 @@
 	color: #FFF;
 	text-align: right;
 	background: #FFF; /* Fall-back for browsers that don't support rgba */
-    background: rgba(255, 255, 255, .2);
+    background: rgba(0, 0, 0, .2);
 }
