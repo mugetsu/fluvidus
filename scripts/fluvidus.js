@@ -45,7 +45,7 @@
         };
 
         this.applyEvents = function (element, options) {
-            var pointer = 0, last = options.childItems.length, pointers = [0, 0];
+            var pointer = 0, last = options.childItems.length, pointers = (options.pager === true) ? [0, 0] : 0;
 
             if (options.pager === true) {
                 $(document.getElementsByClassName(options.navItemLabel), element).click(function(e) {
@@ -55,9 +55,9 @@
                     $('a', this).addClass(options.pagerActive);
 
                     pointer = $(this).index();
-                    pointers.push(pointer);
                     
                     if(pointer != pointers[1]) {
+                        pointers.push(pointer)
                         if (pointers.length >= 3) pointers.shift();
                         _adjuster(element, options, pointers, (pointers[0] > pointers[1]) ? -1 : 1);
                     }
@@ -66,14 +66,16 @@
             } else {
                 $(document.getElementById(options.nextId), element).click(function(e) {
                     e.preventDefault();
-                    pointer++;
-                    _adjuster(element, options, pointer, 1);
+                    (pointers >= (last - 1)) ? pointers = 0 : pointers++;
+                    console.log('next:'+pointers);
+                    _adjuster(element, options, pointers, 1);
                 });
 
                 $(document.getElementById(options.prevId), element).click(function(e) {
                     e.preventDefault();
-                    pointer--;
-                    _adjuster(element, options, pointer, -1);
+                    (pointers <= 0) ? pointers = (last - 1) : pointers--;
+                    console.log('prev:'+pointers);
+                    _adjuster(element, options, pointers, -1);
                 });
             }
         };
@@ -98,15 +100,13 @@
     function _adjuster(element, options, pointers, direction) {
         var itemContent = $(options.child, element).children().length,
             total = (options.childItems.length - 1),
-            tempCurr = pointers[0] || 0,
+            tempCurr = (options.pager === true) ? (typeof pointers[0] === 'undefined') ? 0 : pointers[0]: pointers,
             curr = (options.pager === true) ? pointers[1] || 0 : pointers,
-            prev = (curr <= 0) ? total : curr - 1,
-            next = (curr >= total) ? 0 : curr + 1;
+            prev = (options.pager === true) ? tempCurr : (curr <= 0) ? total : curr - 1,
+            next = (options.pager === true) ? tempCurr : (curr >= total) ? 0 : curr + 1;
         
         direction = direction || 0;
 
-        //console.log('direction:'+direction+', tempCurr:'+tempCurr+', curr:'+curr+', prev:'+prev+', next:'+next);
-        
         if(itemContent === 0) {
             _preloader(document.getElementById('fluvidus-item-curr'), options, curr);
             _preloader(document.getElementById('fluvidus-item-prev'), options, prev);
@@ -115,27 +115,17 @@
             $('#fluvidus-item-prev', element).html('').append('<p>' + options.childItems[prev].desc + '</p>');
             $('#fluvidus-item-next', element).html('').append('<p>' + options.childItems[next].desc + '</p>');
         } else {
-            /*if (options.pager === false) {
-                if (curr >= total) {
-                    curr = 0;
-                    curr++;
-                } else {
-                    curr = total;
-                    curr--;
-                }
-            }*/
+            curr = (options.pager === true) ? curr : curr;
             _preloader(document.getElementById('fluvidus-item-curr'), options, curr);
             $('#fluvidus-item-curr', element).html('').append('<p>' + options.childItems[curr].desc + '</p>');
             if(direction > 0) {
-                if (options.pager === false) tempCurr = next;
-                console.log('next:'+tempCurr);
-                _preloader(document.getElementById('fluvidus-item-prev'), options, tempCurr);
-                $('#fluvidus-item-prev', element).html('').append('<p>' + options.childItems[tempCurr].desc + '</p>');
+                next = (options.pager === true) ? next : prev;
+                _preloader(document.getElementById('fluvidus-item-prev'), options, next);
+                $('#fluvidus-item-prev', element).html('').append('<p>' + options.childItems[next].desc + '</p>');
             } else {
-                if (options.pager === false) tempCurr = prev;
-                console.log('prev:'+tempCurr);
-                _preloader(document.getElementById('fluvidus-item-next'), options, tempCurr);
-                $('#fluvidus-item-next', element).html('').append('<p>' + options.childItems[tempCurr].desc + '</p>');
+                prev = (options.pager === true) ? prev : next;
+                _preloader(document.getElementById('fluvidus-item-next'), options, prev);
+                $('#fluvidus-item-next', element).html('').append('<p>' + options.childItems[prev].desc + '</p>');
             }
         }
         _animator(element, options, direction);
