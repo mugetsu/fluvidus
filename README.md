@@ -13,25 +13,27 @@ Basic:
 Overriding defaults:
 
     $.fluvidus.defaults = {
-      frame: '.fluvidus-frame',
-      frameBase: [
-          { frameId: 'fluvidus-item-prev' },
-          { frameId: 'fluvidus-item-curr' },
-          { frameId: 'fluvidus-item-next' }
-      ],
-      child: '.fluvidus-item',
-      childItems: [{
-          hero: 'images/star-birth-clouds_1227_990x742.jpg',
-          desc: 'Pillars of gas in the Eagle nebula'
-      }],
-      navItemLabel: 'fluvidus-nav-item',
-      navPrevLabel: 'Previous',
-      navNextLabel: 'Next',
-      prevId: 'fluvidus-button-prev',
-      nextId: 'fluvidus-button-next',
-      loaderIcon: 'images/loader.gif',
-      pager: true,
-      pagerActive: 'fluvidus-button-active'
+	    frame: '.fluvidus-frame',
+	    frameBase: [
+			{ frameId: 'fluvidus-item-curr' },
+			{ frameId: 'fluvidus-item-next' },
+			{ frameId: 'fluvidus-item-prev' }
+	    ],
+	    child: '.fluvidus-item',
+	    childItems: [{
+			hero: 'images/star-birth-clouds_1227_990x742.jpg',
+			desc: 'Pillars of gas in the Eagle nebula'
+	    }],
+	    navItemLabel: 'fluvidus-nav-item',
+	    navPrevLabel: 'Previous',
+	    navNextLabel: 'Next',
+	    prevId: 'fluvidus-button-prev',
+	    nextId: 'fluvidus-button-next',
+	    loaderIcon: 'images/loader.gif',
+	    pager: true,
+	    pagerActive: 'fluvidus-button-active',
+	    delay: 600,
+	    easing: 'linear'
     }
 
 **frame** = *id/className of the carousel main frame*
@@ -57,6 +59,10 @@ Overriding defaults:
 **pager** = *true; enable pagination style, false; prev & next*
 
 **pagerActive** = *active pagination class name*
+
+**delay** = *set animation delay*
+
+**easing** = *set animation easing*
 
 ## License
 
