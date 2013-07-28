@@ -136,14 +136,15 @@
             desc = document.createElement('p'),
             text = document.createTextNode(options.childItems[pointer].desc);
 
-        hero.onload = function () {
+        $(hero).load(function(e){
+
             if ($('img', container).length != 0 && $('p', container)) {
                 $('img', container).remove('img');
                 $('p', container).remove('p');
             }
 
             // Element attributes & text
-            _attributer(hero, {
+            _attributer(this, {
                 'src': options.childItems[pointer].hero,
                 'alt': options.childItems[pointer].desc
             });
@@ -151,9 +152,11 @@
 
             container.appendChild(this);
             container.appendChild(desc);
-        }
+            
+        });
         // Append loader image
-        hero.src = options.loaderIcon;
+
+        $(hero).attr('src', options.loaderIcon);
     }
 
     function _attributer(el, attrs) {
