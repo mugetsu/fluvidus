@@ -2,16 +2,62 @@ Fluvidus
 =========
 (flowing) a simple fluid carousel implementation.
 
-[Demo](http://mugetsu.github.io/fluvidus)
-
 ## Using Fluvidus (Beta)
 
-Basic:
+[Previous & Next Demo](http://mugetsu.github.io/fluvidus/prev-next.html)
 
-    $('#fluvidus').fluvidus();
+[Pager Demo](http://mugetsu.github.io/fluvidus/pager.html)
 
-Overriding defaults:
+##Basic Usage:
 
+Using Fluvidus you need to follow a simple pattern:
+
+    <div id="fluvidus" class="fluvidus-block">
+        <ul class="fluvidus-frame">
+            <li id="fluvidus-item-prev" class="fluvidus-item"></li>
+            <li id="fluvidus-item-curr" class="fluvidus-item"></li>
+           <li id="fluvidus-item-next" class="fluvidus-item"></li>
+        </ul>
+    </div>
+    
+Add this stylesheet (css is customizable):
+
+    <link href="path_to/fluvidus.css" rel="stylesheet">
+    
+And the js basic implementation:
+
+    $('#fluvidus').fluvidus({
+        childItems: [{
+            hero: 'path_to/image.jpg',
+            desc: 'Add caption'
+        }, {
+            hero: 'path_to/image.png',
+            desc: 'Add caption'
+        }, {
+            hero: 'path_to/image.jpg',
+            desc: 'Add caption'
+        }]
+    });
+    
+Added some carousel options:
+
+    $('#fluvidus-pager').fluvidus({
+        childItems: [{
+            hero: 'path_to/image.jpg',
+            desc: 'Add caption'
+        }, {
+            hero: 'path_to/image.png',
+            desc: 'Add caption'
+        }, {
+            hero: 'path_to/image.jpg',
+            desc: 'Add caption'
+        }],
+        pager: true,
+        delay: 300,
+        easing: 'easeInCirc'
+    }); 
+
+##Configuration Defaults:
     $.fluvidus.defaults = {
 	    frame: '.fluvidus-frame',
 	    frameBase: [
@@ -36,33 +82,35 @@ Overriding defaults:
 	    easing: 'linear'
     }
 
-**frame** = *id/className of the carousel main frame*
+##Configuration Options:
 
-**frameBase** = *id of the carousel basic frames (previous, current, next) in order*
+- **frame** - id/class name of the carousel main frame
 
-**child** = *className of the carousel item (frame items)*
+- **frameBase** - id of the carousel basic frames (previous, current, next) in order
 
-**childItems** = *image & image description per item, the content*
+- **child** - class name of the carousel item (frame items)
 
-**navItemLabel** = *className for pager items*
+- **childItems** - image & image description per item, the content
 
-**navPrevLabel** = *previous btn label*
+- **navItemLabel** - class name for pager items
 
-**navNextLabel** = *next btn label*
+- **navPrevLabel** - previous btn label
 
-**prevId** = *previous btn id*
+- **navNextLabel** - next btn label
 
-**nextId** = *next btn id*
+- **prevId** - previous btn id
 
-**loaderIcon** = *set loader image*
+- **nextId** - next btn id
 
-**pager** = *true; enable pagination style, false; prev & next*
+- **loaderIcon** - set loader image
 
-**pagerActive** = *active pagination class name*
+- **pager** - true; enable pagination style, false; prev & next
 
-**delay** = *set animation delay*
+- **pagerActive** - active pagination class name
 
-**easing** = *set animation easing*
+- **delay** - set animation delay
+
+- **easing** - set animation easing
 
 ## License
 
