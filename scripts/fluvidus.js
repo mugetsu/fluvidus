@@ -71,14 +71,12 @@
                 $(document.getElementById(options.nextId), element).click(function (e) {
                     e.preventDefault();
                     (pointers >= (last - 1)) ? pointers = 0 : pointers++;
-                    console.log('next:' + pointers);
                     _adjuster(element, options, pointers, 1);
                 });
 
                 $(document.getElementById(options.prevId), element).click(function (e) {
                     e.preventDefault();
                     (pointers <= 0) ? pointers = (last - 1) : pointers--;
-                    console.log('prev:' + pointers);
                     _adjuster(element, options, pointers, -1);
                 });
             }
@@ -117,7 +115,6 @@
                 _preloader(document.getElementById(options.frameBase[i].frameId), options, points[i]);
             }
         } else {
-            curr = (options.pager === true) ? curr : curr;
             _preloader(document.getElementById(options.frameBase[0].frameId), options, curr);
             if (direction > 0) {
                 next = (options.pager === true) ? next : prev;
@@ -138,9 +135,8 @@
 
         $(hero).load(function(e){
 
-            if ($('img', container).length != 0 && $('p', container)) {
-                $('img', container).remove('img');
-                $('p', container).remove('p');
+            if ($('img, p', container).length != 0) {
+                $('img, p', container).remove();
             }
 
             // Element attributes & text
@@ -154,8 +150,8 @@
             container.appendChild(desc);
             
         });
-        // Append loader image
 
+        // Append loader image
         $(hero).attr('src', options.loaderIcon);
     }
 
@@ -167,7 +163,6 @@
 
     function _animator(element, options, direction) {
         if (direction > 0) {
-            // Next
             $(options.frame, element).css('left', '0%').stop(true).animate({
                 left: -(100) + '%'
             }, options.delay, options.easing);
