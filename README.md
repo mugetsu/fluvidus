@@ -120,4 +120,4 @@ Added some carousel options:
 
 ## License
 
-GPL
+GPL V2
