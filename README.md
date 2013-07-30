@@ -20,9 +20,15 @@ Using Fluvidus you need to follow a simple pattern:
         </ul>
     </div>
     
-Add this stylesheet (css is customizable):
+Add stylesheet (or edit it the way you want):
 
     <link href="path_to/fluvidus.css" rel="stylesheet">
+
+Also add Fluvidus plugin:
+
+    <script type="text/javascript" src="path_to/jquery.min.js"></script> <!-- jQuery! -->
+    <script type="text/javascript" src="path_to/jquery.easing.1.3.js"></script> <!-- add this if you want easing on your carousel -->
+    <script type="text/javascript" src="path_to/fluvidus.min.js"></script> <!-- minified version of Fluvidus -->
     
 And the js basic implementation:
 
