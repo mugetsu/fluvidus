@@ -85,7 +85,9 @@ Added some carousel options:
 	    pager: true,
 	    pagerActive: 'fluvidus-button-active',
 	    delay: 600,
-	    easing: 'linear'
+	    easing: 'linear',
+        autoplay: false,
+        speed: 5000
     }
 
 ##Configuration Options:
@@ -117,6 +119,10 @@ Added some carousel options:
 - **delay** - set animation delay
 
 - **easing** - set animation easing
+
+- **autoplay** - enable carousel autoplay
+
+- **speed** - set autoplay speed
 
 ## License
 
