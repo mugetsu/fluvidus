@@ -51,6 +51,31 @@
                 last = options.childItems.length,
                 pointers = (options.pager === true) ? [(last - 1), 0] : 0;
 
+            // Check if autoplay is on
+            if (options.autoplay === true) {
+                var loop = window.setInterval(function(){_looper()}, options.speed),
+                    trigger;
+
+                loop;
+
+                function _looper() {
+                    (pointer >= (last - 1)) ? pointer = 0 : pointer++;
+                    if (options.pager === true) {
+                        trigger = $(document.getElementsByClassName(options.navItemLabel)[pointer], element).trigger('click');
+                    } else {
+                        trigger = $(document.getElementById(options.nextId), element).trigger('click');
+                    }
+                    trigger;
+                }
+
+                // Clear interval on hover
+                $(options.child, element).hover(function() {
+                    window.clearInterval(loop);    
+                }, function() {
+                    loop = window.setInterval(function(){_looper()}, options.speed);
+                });
+            }
+
             if (options.pager === true) {
                 $(document.getElementsByClassName(options.navItemLabel), element).click(function (e) {
                     e.preventDefault();
@@ -173,6 +198,10 @@
         }
     }
 
+    function _autoplay(element, options, direction) {
+        _animator(element, options, direction);
+    }
+
     $.fluvidus.defaults = {
         frame: '.fluvidus-frame',
         frameBase: [{
@@ -196,7 +225,9 @@
         pager: true,
         pagerActive: 'fluvidus-button-active',
         delay: 600,
-        easing: 'linear'
+        easing: 'linear',
+        autoplay: false,
+        speed: 5000
     }
 
 })(jQuery);
