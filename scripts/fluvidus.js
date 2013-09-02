@@ -92,11 +92,11 @@
     };
 
     function _framing(element, options) {
-        return (($(options.frame, element).width() * (options.childItems.length - 1)) / $(options.frame, element).width()) * 100;
+        return (($(options.frame, element).width() * options.childItems.length) / $(options.frame, element).width()) * 100;
     }
 
     function _orienting(element, options) {
-        return ($(options.frame, element).width() / ($(options.frame, element).width() * (options.childItems.length - 1))) * 100;
+        return ($(options.frame, element).width() / ($(options.frame, element).width() * options.childItems.length )) * 100;
     }
 
     function _adjuster(element, options, pointers, direction) {
