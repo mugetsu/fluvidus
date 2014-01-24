@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Fluvidus</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A simple carousel implementation.">
+        <meta name="author" content="Randell Quitain">
+
+        <!-- Styles -->
+        <link href="theme/styles/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="theme/styles/fluvidus.css" rel="stylesheet">
+
+        <style type="text/css">
+            /* Custom container */
+            .container-narrow {
+                margin: 0 auto;
+                max-width: 960px;
+            }
+            .container-narrow > hr {
+                margin: 30px 0;
+            }
+
+            /* Main marketing message and sign up button */
+            .jumbotron {
+                margin: 40px 0;
+                text-align: center;
+            }
+            .jumbotron h1 {
+                font-size: 72px;
+                line-height: 1;
+            }
+
+            /* Github buttons */
+            .github-btns {
+                margin-top: 20px;
+            }
+
+            /* Footer */
+            .footer {
+                text-align: center;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        
+        <div class="main">
+            
+            <div class="fluvidus-wrapper">
+                <div class="fluvidus">
+                    <li class="items" data-src="http://i2.cdn.turner.com/cnn/dam/assets/130722144735-korean-mud-festival-10-horizontal-gallery.jpg" data-caption="1: Everyone gets horizontal inside the mud tub."></li>
+                    <li class="items" data-src="http://i2.cdn.turner.com/cnn/dam/assets/130722112255-korea-mud-festival-3-horizontal-gallery.jpg" data-caption="2: Wise move. You probably do not want to get it in your eyes, no matter how beneficial it is."></li>
+                    <li class="items" data-src="http://i2.cdn.turner.com/cnn/dam/assets/130722113118-korea-mud-festival-9-horizontal-gallery.jpg" data-caption="3: Are so full of foreign tourists that one could mistake them for Europe or the United States."></li>
+                    <li class="items" data-src="http://i2.cdn.turner.com/cnn/dam/assets/130722112703-korea-mud-festival-6-horizontal-gallery.jpg" data-caption="4: A local beer company is adding a rock festival and beer festival to the mix."></li>
+                    <li class="items" data-src="http://i2.cdn.turner.com/cnn/dam/assets/130722144851-korean-mud-festival-11-horizontal-gallery.jpg" data-caption="5: Face and body benefits maybe, but that stuff has got to be murder to get out of your hair."></li>
+                </div>
+                <div class="fluvidus-controls">
+                    <a id="prev" href="#">Prev</a>
+                    <a id="next" href="#">Next</a>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>&copy; Fluvidus | Randell Quitain 2014</p>
+        </div>
+
+
+        <!-- Javascripts -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="theme/scripts/jquery-1.10.2.min.js"><\/script>')</script>
+        <script type="text/javascript" src="theme/scripts/fluvidus.js"></script>
+        <script>
+            $(document).ready(function(){
+                
+                // call fluvidus object
+                $.plugin('fluvidus', fluvidus);
+
+                // initialize plugin
+                $('.fluvidus').fluvidus();
+
+            });
+        </script>
+    </body>
+</html>

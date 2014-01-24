@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+/*
+* Fluvidus V2.0
+* A simple carousel implementation.
+* Copyright 2013, Randell Quitain
+* 12/18/2013
+*/
+
+/* #Defaults
+================================================== */
+
+/* Container */
+.fluvidus-wrapper {
+    width: 640px;
+    height: 360px;
+    overflow: hidden;
+}
+
+/* Items */
+.items {
+    float: left;
+    display: block;
+    width: 640px;
+    height: 360px;
+}
+
+.items > img {
+    max-width: 100%;
+    height: auto;
+}
+
+.image-container {
+	opacity: 0;
+}
+
+/* END */
