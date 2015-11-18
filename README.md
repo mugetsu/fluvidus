@@ -1,6 +1,6 @@
 Fluvidus 
 =========
-(flowing) a simple fluid carousel implementation.
+(flowing) a simple fluid carousel implementation
 
 ## Using Fluvidus (Beta)
 
